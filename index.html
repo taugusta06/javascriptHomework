@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mortal Kombat Word Guess</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+        
+
+        <h1 class="text-danger mx-auto text-center bg-dark">Mortal Kombat Guessing Game</h1>
+        <div class="container mx-auto w-50 p-3 bg-dark">
+                <div class="row border border-danger text-center bg-dark rounded">
+                    <h2 class="text-danger mx-auto">Guess the character</h2>
+                </div>
+
+                <div class="row border border-danger text-center bg-dark rounded">
+                    <img src="assets/images/Mystery-person.png" class="rounded mx-auto d-block" alt="" height=200px width=200px>
+                </div>
+                <div class="row border border-danger text-center text-white rounded">
+                    <p class = "text-center" id="currentCharacter"></p>
+                </div>
+                <div class="row border border-danger text-center text-white rounded">
+                    <p class = "text-center" id="remainingLetters"></p>
+                </div>
+                <div class="row border border-danger text-center rounded">
+                    <p class = "text-center" id="usedLetters"></p>
+                </div>
+                <div class="row border border-danger text-center rounded">
+                    <p class = "text-center" id="remainingGuesses"></p>
+                </div>
+        </div>
+
+        <script>
+
+
+
+        var alphabet = [" a ", " b ", " c ", " d ", " e ", " f ", " g ", " h ", " i ", " j ", " k ", " l ", " m ", " n ", " o ", " p ", " q ", " r ", " s ", " t ", " u ", " v ", " w ", " x ", " y ", " z "];
+      
+        var guessList = ["scorpion", "subzero", "kitana", "mileena", "baraka", "goro", "rain", "smoke", "reptile"];
+
+
+        var selection = Math.floor(Math.random()*9);  // chooses a number at random from 0 - 9 to match guesslist array
+        var character = guessList[selection];  //assigns character choice based on the index # generated in selection
+        var spaces = character.length; // gets number of spaces needed based on letter count in answer choice
+        var showSpaces =[spaces]; //makes letter count for spaces into an array to determine how many spaces needed
+        var finish = spaces; // determines how many correct guesses needed to finish
+        var pickedLetters = []; //makes an array for stored letters taken from guesses
+        var remainingGuesses = 10;  // sets how many chances allowed to guess
+        var showGuess = ""; //correct guesses
+
+
+
+        window.onload = function(){
+            begin();
+        }
+
+        var begin = function(){
+            for (i = 0; i < character.length; i++){
+                showSpaces[i] = "_";
+                showGuess = showGuess + showSpaces[i];
+            }
+            renderCurrentCharacter(character);
+        }
+
+
+        // items to display
+        // var guessesLeft = document.getElementById("remainingGuesses");
+        // var showCharacter = document.getElementById("currentCharacter");
+
+//         // letter list
+
+
+
+        function renderCurrentCharacter(character){
+            document.getElementById("currentCharacter").innerHTML = showGuess;
+            showGuess = "";
+        }
+
+        document.onkeyup = function(event){
+            var key = event.key.toLowerCase(); // user picked guess
+
+            var guess = key;
+            if(alphabet.includes(guess.value())){
+                console.log(guess + "is there.");
+                // pickedLetters.push(guess);
+                // alphabet.splice(guess);
+                // renderLettersLeft(alphabet);
+                // renderUsedLettersLeft(pickedLetters);
+                // console.log("picks: " + pickedLetters);
+                // console.log("alpha: " + alphabet);
+
+
+            }
+
+        }
+
+
+
+
+
+
+        function renderLettersLeft(alphabet){
+            document.getElementById("remainingLetters").innerHTML = "Remaining Letters: " + alphabet;
+        }
+
+        function renderUsedLettersLeft(pickedLetters){
+            document.getElementById("usedLetters").innerHTML = "Letters Chosen: " + pickedLetters;
+        }
+
+//         function renderGuessesLeft(messages){
+//             document.getElementById("remainingGuesses").innerHTML = message;
+
+//         }
+
+// display the remaining letters
+        renderLettersLeft(alphabet);
+
+
+
+
+        
+
+
+
+
+
+
+        </script>
+</body>
+</html>

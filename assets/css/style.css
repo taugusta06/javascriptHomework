@@ -1,0 +1,7 @@
+body{
+    background-image: url(../images/mklogo.jpg);
+}
+
+#currentCharacter {
+    text-align: center;
+}
