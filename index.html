@@ -17,7 +17,7 @@
                     <h2 class="text-danger mx-auto">Guess the character</h2>
                 </div>
 
-                <div class="row border border-danger text-center bg-dark rounded">
+                <div class="row border border-danger text-center bg-dark rounded" id ="picrow">
                     <img src="assets/images/Mystery-person.png" class="rounded mx-auto d-block" alt="" height=200px width=200px>
                 </div>
                 <div class="row border border-danger text-center text-white rounded">
@@ -26,10 +26,10 @@
                 <div class="row border border-danger text-center text-white rounded">
                     <p class = "text-center" id="remainingLetters"></p>
                 </div>
-                <div class="row border border-danger text-center rounded">
+                <div class="row border border-danger text-center text-white rounded">
                     <p class = "text-center" id="usedLetters"></p>
                 </div>
-                <div class="row border border-danger text-center rounded">
+                <div class="row border border-danger text-center text-white rounded">
                     <p class = "text-center" id="remainingGuesses"></p>
                 </div>
         </div>
@@ -38,7 +38,7 @@
 
 
 
-        var alphabet = [" a ", " b ", " c ", " d ", " e ", " f ", " g ", " h ", " i ", " j ", " k ", " l ", " m ", " n ", " o ", " p ", " q ", " r ", " s ", " t ", " u ", " v ", " w ", " x ", " y ", " z "];
+        var alphabet = ["a", "b", "c" , "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
       
         var guessList = ["scorpion", "subzero", "kitana", "mileena", "baraka", "goro", "rain", "smoke", "reptile"];
 
@@ -46,7 +46,7 @@
         var selection = Math.floor(Math.random()*9);  // chooses a number at random from 0 - 9 to match guesslist array
         var character = guessList[selection];  //assigns character choice based on the index # generated in selection
         var spaces = character.length; // gets number of spaces needed based on letter count in answer choice
-        var showSpaces =[spaces]; //makes letter count for spaces into an array to determine how many spaces needed
+        var showSpaces =[]; //makes letter count for spaces into an array to determine how many spaces needed
         var finish = spaces; // determines how many correct guesses needed to finish
         var pickedLetters = []; //makes an array for stored letters taken from guesses
         var remainingGuesses = 10;  // sets how many chances allowed to guess
@@ -60,12 +60,19 @@
 
         var begin = function(){
             for (i = 0; i < character.length; i++){
-                showSpaces[i] = "_";
+                showSpaces.push(" _ ");
                 showGuess = showGuess + showSpaces[i];
             }
             renderCurrentCharacter(character);
+            renderUsedLettersLeft(pickedLetters);
+            renderLettersLeft(alphabet);
+
         }
 
+        function renderCurrentCharacter(character){
+            document.getElementById("currentCharacter").innerHTML = showGuess;
+            showGuess = "";
+        }
 
         // items to display
         // var guessesLeft = document.getElementById("remainingGuesses");
@@ -75,27 +82,29 @@
 
 
 
-        function renderCurrentCharacter(character){
-            document.getElementById("currentCharacter").innerHTML = showGuess;
-            showGuess = "";
-        }
 
         document.onkeyup = function(event){
-            var key = event.key.toLowerCase(); // user picked guess
+            var guess = event.key.toLowerCase(); // user picked guess
 
-            var guess = key;
-            if(alphabet.includes(guess.value())){
-                console.log(guess + "is there.");
-                // pickedLetters.push(guess);
-                // alphabet.splice(guess);
-                // renderLettersLeft(alphabet);
-                // renderUsedLettersLeft(pickedLetters);
-                // console.log("picks: " + pickedLetters);
-                // console.log("alpha: " + alphabet);
-
-
+            console.log(alphabet.includes(guess));
+            if(alphabet.includes(guess)){
+                console.log(guess + " is there.");
+                pickedLetters.push(guess);
+                renderUsedLettersLeft(pickedLetters);
+                delete alphabet[alphabet.indexOf(guess)];
+                renderLettersLeft(alphabet);
+                console.log("picks: " + pickedLetters);
+                console.log("alpha: " + alphabet);
+                console.log(character);
             }
+               for (j=0;j<character.length;j++){
+                   if (character.indexOf[j] === guess){
+                       showGuess.indexOf(j) = guess;
+                       renderCurrentCharacter(character);
 
+                   }
+               }
+           
         }
 
 
@@ -104,20 +113,20 @@
 
 
         function renderLettersLeft(alphabet){
-            document.getElementById("remainingLetters").innerHTML = "Remaining Letters: " + alphabet;
+            document.getElementById("remainingLetters").innerHTML = "Remaining Letters: " + alphabet.join(" ");
         }
 
         function renderUsedLettersLeft(pickedLetters){
             document.getElementById("usedLetters").innerHTML = "Letters Chosen: " + pickedLetters;
         }
 
-//         function renderGuessesLeft(messages){
-//             document.getElementById("remainingGuesses").innerHTML = message;
+        function renderGuessesLeft(messages){
+            document.getElementById("remainingGuesses").innerHTML = message;
 
-//         }
+        }
 
 // display the remaining letters
-        renderLettersLeft(alphabet);
+        // renderLettersLeft(alphabet);
 
 
 

@@ -5,3 +5,11 @@ body{
 #currentCharacter {
     text-align: center;
 }
+
+.row {
+    height: 100px
+}
+
+#picrow{
+    height: 240px;
+}
