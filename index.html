@@ -74,6 +74,8 @@
             showGuess = "";
         }
 
+
+
         // items to display
         // var guessesLeft = document.getElementById("remainingGuesses");
         // var showCharacter = document.getElementById("currentCharacter");
@@ -82,10 +84,9 @@
 
 
 
-
         document.onkeyup = function(event){
             var guess = event.key.toLowerCase(); // user picked guess
-
+            
             console.log(alphabet.includes(guess));
             if(alphabet.includes(guess)){
                 console.log(guess + " is there.");
@@ -96,14 +97,23 @@
                 console.log("picks: " + pickedLetters);
                 console.log("alpha: " + alphabet);
                 console.log(character);
+                if (!character.includes(guess)){
+                    remainingGuesses --;
+                    console.log(remainingGuesses);
+                    renderGuessesLeft();
+                }
             }
-               for (j=0;j<character.length;j++){
-                   if (character.indexOf[j] === guess){
-                       showGuess.indexOf(j) = guess;
-                       renderCurrentCharacter(character);
 
+               for (j=0;j<character.length;j++){
+                   if (pickedLetters.indexOf(character.charAt(j))> -1){
+                      showGuess += character.charAt(j); 
+                   }
+                   else {
+                       showGuess += " _ ";
                    }
                }
+
+                renderCurrentCharacter(character);
            
         }
 
@@ -120,8 +130,8 @@
             document.getElementById("usedLetters").innerHTML = "Letters Chosen: " + pickedLetters;
         }
 
-        function renderGuessesLeft(messages){
-            document.getElementById("remainingGuesses").innerHTML = message;
+        function renderGuessesLeft(){
+            document.getElementById("remainingGuesses").innerHTML = showGuess;
 
         }
 
